@@ -18,6 +18,7 @@ public class ConectorDB {
 	private String user="root";
 	private String password="root";
 	private String db="veterinaria";
+	
 	private int conectados=0;
 	private Connection conn=null;
 	

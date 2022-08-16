@@ -44,5 +44,16 @@ public class EspecieLogic {
 		{
 			throw e;
 		}
+	}	
+	public Especie getByDescripcion (Especie esp) {
+		try
+		{
+			Especie especie = new Especie();
+			especie = de.getByDescripcion(esp);
+			return especie;
+		} catch (Exception e)
+		{
+			throw e;
+		}
 	}
 }

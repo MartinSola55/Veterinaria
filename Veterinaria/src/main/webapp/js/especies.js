@@ -54,10 +54,10 @@ function campoRequired() {
     campos = $(".required");
     for (let i = 0; i < campos.length; i++) {
         if (campos[i].value == "") {
-            $(".campo" + i).addClass("error");
+            $("#campo" + i).addClass("error");
             return false;
         } else {
-            $(".campo" + i).removeClass("error");
+            $("#campo" + i).removeClass("error");
         }
     }
     return true;
@@ -67,29 +67,29 @@ function confirmarCambios() {
     if (campoRequired()) {
         let id = $("#txtID").val();
         let descripcion = $("#txtDescripcion").val();
-        let datos = {
+        let json = {
 			"id": id,
 			"descripcion": descripcion,
 			"action": ""
 		};
         if ($("#btnAceptar").hasClass("eliminar")) {
-            if (confirm("¿Seguro que desea eliminar la especie?") == 1) {
-				datos["action"] = "delete";
-                crudEspecie(datos);
+            if (confirm("Seguro que desea eliminar la especie?") == 1) {
+				json["action"] = "delete";
+                crudEspecie(json);
             }
         } else {
-			datos["action"] = "save";
-            crudEspecie(datos);
+			json["action"] = "save";
+            crudEspecie(json);
         }
     }
 }
 
-function crudEspecie(datos) {
+function crudEspecie(json) {
     $.ajax({
         type: "POST",
         url: "Especies",
         dataType: 'json',
-        data: datos,
+        data: json,
         success: function (data) {
             if (data == 1) {
                 if ($("#btnAceptar").hasClass("eliminar")) {
@@ -97,14 +97,12 @@ function crudEspecie(datos) {
                 } else {
                     alert("La especie se guardo correctamente");
                 }
-                $("#btnCancelar").click();
-
+         		location.reload();
             } else if ( data == -1) {
                 alert("La especie ingresada ya existe");
             } else {
                 alert("Los cambios no se guardaron. Error en la base de datos");
             }
-         	location.reload();
         }
     });
 }

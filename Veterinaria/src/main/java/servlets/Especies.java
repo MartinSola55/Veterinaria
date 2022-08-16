@@ -35,22 +35,24 @@ public class Especies extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		EspecieLogic el = new EspecieLogic();
-		
-		if (request.getParameter("id") != null) {			
-			int id = Integer.parseInt(request.getParameter("id"));
-			Especie especie = el.getOne(id);	
-			String json = new Gson().toJson(especie);
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(json);
-			
-		} else {
-			LinkedList<Especie> especies = el.getAll();		
-			request.setAttribute("listaEspecies", especies);		
-			
-			request.getRequestDispatcher("WEB-INF/Especies.jsp").forward(request, response);	
+		try {			
+			EspecieLogic el = new EspecieLogic();
+			if (request.getParameter("id") != null) {			
+				int id = Integer.parseInt(request.getParameter("id"));
+				Especie especie = el.getOne(id);	
+				String json = new Gson().toJson(especie);
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(json);
+				
+			} else {
+				LinkedList<Especie> especies = el.getAll();		
+				request.setAttribute("listaEspecies", especies);		
+				
+				request.getRequestDispatcher("WEB-INF/Especies.jsp").forward(request, response);	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -63,18 +65,32 @@ public class Especies extends HttpServlet {
 		int regAfectados = 0;
 		try {
 			switch (request.getParameter("action")) {
-			case "save": {				
+			case "save": {	
+				String descripcion = request.getParameter("descripcion");
 				if (request.getParameter("id") == "") {
-					Especie especie = new Especie();	
-					especie.setDescripcion(request.getParameter("descripcion"));
-					el.add(especie);
-					regAfectados = 1;
-				} else {
 					Especie especie = new Especie();
-					especie.setId(Integer.parseInt(request.getParameter("id")));
-					especie.setDescripcion(request.getParameter("descripcion"));
-					el.update(especie);
-					regAfectados = 1;
+					Especie repetido = new Especie();
+					especie.setDescripcion(descripcion);
+					repetido = el.getByDescripcion(especie);
+					if (!(descripcion.equals(repetido.getDescripcion()))) {
+						el.add(especie);
+						regAfectados = 1;						
+					} else {
+						regAfectados = -1;
+					}
+				} else {
+					int ID = Integer.parseInt(request.getParameter("id"));
+					Especie especie = new Especie();
+					Especie repetido = new Especie();
+					especie.setId(ID);
+					especie.setDescripcion(descripcion);
+					repetido = el.getByDescripcion(especie);
+					if (!(descripcion.equals(repetido.getDescripcion()))) {
+						el.update(especie);
+						regAfectados = 1;						
+					} else {
+						regAfectados = -1;
+					}
 				}
 				break;
 			}

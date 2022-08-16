@@ -76,7 +76,6 @@ public class DataEspecies {
 		try {
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("INSERT INTO especie(descripcion) values(?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, esp.getDescripcion());
-			System.out.println(esp.getDescripcion());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
@@ -123,7 +122,6 @@ public class DataEspecies {
 		try {
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("UPDATE especie SET descripcion =? WHERE id=?");
 			stmt.setString(1, especie.getDescripcion());
-			System.out.println(especie.getDescripcion());
 			stmt.setInt(2, especie.getId());
 			stmt.executeUpdate();
 			
@@ -139,5 +137,34 @@ public class DataEspecies {
 		}		
 	}
 	
-	
+	public Especie getByDescripcion(Especie especie) {
+		Especie esp = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=ConectorDB.getInstancia().getConn().prepareStatement("SELECT * FROM especie WHERE descripcion = ? AND NOT id = ?");
+			stmt.setString(1, especie.getDescripcion());
+			stmt.setInt(2, especie.getId());
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				esp = new Especie();
+				esp.setId(rs.getInt("id"));
+				esp.setDescripcion(rs.getString("descripcion"));
+			} else {
+				esp = new Especie();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				ConectorDB.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return esp;
+	}
 }
