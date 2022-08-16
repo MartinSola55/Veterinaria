@@ -14,36 +14,16 @@
    	    <link href="styles/mis-estilos.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
-	<%@ include file="../Header.jsp" %>
+	<%@ include file="Header.jsp" %>
 	<main>
-		<% LinkedList<Especie> especies = (LinkedList<Especie>)request.getAttribute("listaEspecies");%>
 		<h1 class="text-center mt-5">Especies</h1>
 		
 		
-			<div id="tabla-generic" class="container body-content mt-5">
-				<table  class="table table-striped table-bordered table-dark table-hover">
-				 <thead>
-				 	<tr class="text-center">
-				 		<td>ID</td>
-				 		<td>Descripción</td>
-				 		<td>Acción</td>
-				 	</tr>
-				 </thead>
-				 <tbody>
-				 <% for (Especie esp : especies) { %>
-		                    			<tr>
-		                    				<td class="text-center"><%=esp.getId()%></td>
-		                    				<td><%=esp.getDescripcion()%></td>
-		                    				<td class="d-flex justify-content-center">
-			                    				<button class='btn btn-outline-success me-4' onclick='modalEdit(<%=esp.getId()%>)' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-pencil-square'></i></button>
-			                    				<button class='btn btn-outline-danger ms-4' onclick='modalDelete(<%=esp.getId()%>)' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-trash3'></i></button>
-											</td>	                    				
-		                    			</tr>
-		                    		<% } %>
-				 </tbody>
-				</table>
+			<div id="tabla-especie" class="container body-content mt-5">
 			</div>
 			<hr />
+			
+			
 			<div class="container">
 				<button id="btnAgregar" class="btn btn-success mb-5 mt-2 px-4" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 					Agregar
@@ -73,7 +53,7 @@
 			    </div>
 			</div>
 	</main>
-	<%@ include file="../Footer.jsp" %>
+	<%@ include file="Footer.jsp" %>
 	
 	
     <script src="js/bootstrap.min.js"></script>

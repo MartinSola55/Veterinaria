@@ -20,4 +20,15 @@
     <url-pattern>/Especies</url-pattern>
     <url-pattern>/especies</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Razas</display-name>
+    <servlet-name>Razas</servlet-name>
+    <servlet-class>servlets.Razas</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Razas</servlet-name>
+    <url-pattern>/Razas</url-pattern>
+    <url-pattern>/razas</url-pattern>
+  </servlet-mapping>
 </web-app>

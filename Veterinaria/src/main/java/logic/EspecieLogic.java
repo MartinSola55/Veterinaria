@@ -1,7 +1,7 @@
 package logic;
 
-import entities.Especie;
-import data.DataEspecies;
+import entities.*;
+import data.*;
 import java.util.LinkedList;
 
 public class EspecieLogic {

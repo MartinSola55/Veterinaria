@@ -5,27 +5,27 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import logic.EspecieLogic;
+
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.LinkedList;
-//java json
-//jersey
 
 import com.google.gson.Gson;
 
 import entities.*;
 import logic.*;
 
+
 /**
- * Servlet implementation class Especie
+ * Servlet implementation class Razas
  */
-public class Especies extends HttpServlet {
+public class Razas extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Especies() {
+    public Razas() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,58 +36,60 @@ public class Especies extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {			
-			EspecieLogic el = new EspecieLogic();
+			RazaLogic rl = new RazaLogic();
 			if (request.getParameter("id") != null) {			
 				int id = Integer.parseInt(request.getParameter("id"));
-				Especie especie = el.getOne(id);	
-				String json = new Gson().toJson(especie);
+				Raza raza = rl.getOne(id);	
+				String json = new Gson().toJson(raza);
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write(json);
 				
 			} else {
-				LinkedList<Especie> especies = el.getAll();		
-				String json = new Gson().toJson(especies);
+				LinkedList<Raza> razas= rl.getAll();		
+				String json = new Gson().toJson(razas);
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
 				response.getWriter().write(json);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
+		}	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		EspecieLogic el = new EspecieLogic();
+		RazaLogic rl = new RazaLogic();
 		int regAfectados = 0;
 		try {
 			switch (request.getParameter("action")) {
 			case "save": {	
 				String descripcion = request.getParameter("descripcion");
+				int especie = Integer.parseInt(request.getParameter("especie"));
 				if (request.getParameter("id") == "") {
-					Especie especie = new Especie();
-					Especie repetido = new Especie();
-					especie.setDescripcion(descripcion);
-					repetido = el.getByDescripcion(especie);
+					Raza raza = new Raza();
+					Raza repetido = new Raza();
+					raza.setDescripcion(descripcion);
+					raza.setCod_especie(especie);
+					repetido = rl.getByDescripcion(raza);
 					if (!(descripcion.equals(repetido.getDescripcion()))) {
-						el.add(especie);
+						rl.add(raza);
 						regAfectados = 1;						
 					} else {
 						regAfectados = -1;
 					}
 				} else {
 					int ID = Integer.parseInt(request.getParameter("id"));
-					Especie especie = new Especie();
-					Especie repetido = new Especie();
-					especie.setId(ID);
-					especie.setDescripcion(descripcion);
-					repetido = el.getByDescripcion(especie);
+					Raza raza = new Raza();
+					Raza repetido = new Raza();
+					raza.setId(ID);
+					raza.setDescripcion(descripcion);
+					raza.setCod_especie(especie);
+					repetido = rl.getByDescripcion(raza);
 					if (!(descripcion.equals(repetido.getDescripcion()))) {
-						el.update(especie);
+						rl.update(raza);
 						regAfectados = 1;						
 					} else {
 						regAfectados = -1;
@@ -96,9 +98,9 @@ public class Especies extends HttpServlet {
 				break;
 			}
 			case "delete": {
-				Especie especie = new Especie();
-				especie.setId(Integer.parseInt(request.getParameter("id")));
-				el.delete(especie);
+				Raza raza = new Raza();
+				raza.setId(Integer.parseInt(request.getParameter("id")));
+				rl.delete(raza);
 				regAfectados = 1;
 				break;
 			}
