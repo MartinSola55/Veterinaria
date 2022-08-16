@@ -19,18 +19,17 @@ public class DataRazas {
 			if(rs!=null) {
 				while(rs.next()) {
 					Raza r = new Raza();
+					Especie e = new Especie();
 					r.setId(rs.getInt("r.id"));
 					r.setDescripcion(rs.getString("r.descripcion"));
-					r.setCod_especie(rs.getInt("r.cod_especie"));
-					r.setDesc_especie(rs.getString("e.descripcion"));
-					
+					e.setId(rs.getInt("r.cod_especie"));
+					e.setDescripcion(rs.getString("e.descripcion"));
+					r.setEspecie(e);
 					razas.add(r);
 				}
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
 		} finally {
 			try {
 				if(rs!=null) {rs.close();}
@@ -40,8 +39,6 @@ public class DataRazas {
 				e.printStackTrace();
 			}
 		}
-		
-		
 		return razas;
 	}
 	
@@ -55,10 +52,12 @@ public class DataRazas {
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				raza = new Raza();
+				Especie e = new Especie();
 				raza.setId(rs.getInt("r.id"));
 				raza.setDescripcion(rs.getString("r.descripcion"));
-				raza.setCod_especie(rs.getInt("r.cod_especie"));
-				raza.setDesc_especie(rs.getString("e.descripcion"));
+				e.setId(rs.getInt("r.cod_especie"));
+				e.setDescripcion(rs.getString("e.descripcion"));
+				raza.setEspecie(e);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -71,7 +70,6 @@ public class DataRazas {
 				e.printStackTrace();
 			}
 		}
-		
 		return raza;
 	}
 	
@@ -82,14 +80,13 @@ public class DataRazas {
 		try {
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("INSERT INTO raza(descripcion, cod_especie) values(?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, r.getDescripcion());
-			stmt.setInt(2, r.getCod_especie());
+			stmt.setInt(2, r.getEspecie().getId());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next()){
                 r.setId(keyResultSet.getInt(1));
             }
-			
 		}  catch (SQLException e) {
             throw e;
 		} finally {
@@ -109,9 +106,6 @@ public class DataRazas {
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("DELETE FROM raza WHERE id=?");
 			stmt.setInt(1, r.getId());
 			stmt.executeUpdate();
-			
-
-			
 		}  catch (SQLException e) {
             e.printStackTrace();
 		} finally {
@@ -129,10 +123,9 @@ public class DataRazas {
 		try {
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("UPDATE raza SET descripcion = ?, cod_especie = ? WHERE id = ?");
 			stmt.setString(1, r.getDescripcion());
-			stmt.setInt(2, r.getCod_especie());
+			stmt.setInt(2, r.getEspecie().getId());
 			stmt.setInt(3, r.getId());
 			stmt.executeUpdate();
-			
 		} catch (SQLException e) {
 			throw e;
 		}finally {
@@ -145,23 +138,18 @@ public class DataRazas {
 		}		
 	}
 	
-	public Raza getByDescripcion(Raza r) {
-		Raza raza = null;
+	public int getByDescEsp(Raza r) {
+		int repetido = 0;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("SELECT * FROM raza WHERE descripcion = ? AND cod_especie = ? AND NOT id = ?");
 			stmt.setString(1, r.getDescripcion());
-			stmt.setInt(2, r.getCod_especie());
+			stmt.setInt(2, r.getEspecie().getId());
 			stmt.setInt(3, r.getId());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
-				raza = new Raza();
-				raza.setId(rs.getInt("id"));
-				raza.setDescripcion(rs.getString("descripcion"));
-				raza.setCod_especie(rs.getInt("cod_especie"));
-			} else {
-				raza = new Raza();
+				repetido = 1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -174,7 +162,6 @@ public class DataRazas {
 				e.printStackTrace();
 			}
 		}
-		
-		return raza;
+		return repetido;
 	}
 }

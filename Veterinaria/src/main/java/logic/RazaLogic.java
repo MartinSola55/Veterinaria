@@ -8,15 +8,23 @@ public class RazaLogic {
 	private DataRazas de = new DataRazas();
 	
 	public LinkedList<Raza> getAll() {
-		LinkedList<Raza> razas = new LinkedList<Raza>();
-		razas = de.getAll();
-		return razas;
+		try {			
+			LinkedList<Raza> razas = new LinkedList<Raza>();
+			razas = de.getAll();
+			return razas;
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	public Raza getOne(int id) {
-		Raza raza = new Raza();
-		raza.setId(id);
-		raza = de.getOne(raza);
-		return raza;
+		try {			
+			Raza raza = new Raza();
+			raza.setId(id);
+			raza = de.getOne(raza);
+			return raza;
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	public void add (Raza raza) throws Exception {
         try
@@ -45,12 +53,11 @@ public class RazaLogic {
 			throw e;
 		}
 	}	
-	public Raza getByDescripcion (Raza r) {
+	public int getByDescEsp (Raza r) {
 		try
 		{
-			Raza raza = new Raza();
-			raza = de.getByDescripcion(r);
-			return raza;
+			int repetido = de.getByDescEsp(r);
+			return repetido;
 		} catch (Exception e)
 		{
 			throw e;

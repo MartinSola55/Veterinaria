@@ -10,7 +10,6 @@ public class DataEspecies {
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Especie> especies= new LinkedList<Especie>();
-		
 		try {
 			stmt= ConectorDB.getInstancia().getConn().createStatement();
 			rs= stmt.executeQuery("SELECT * FROM especie");
@@ -19,14 +18,11 @@ public class DataEspecies {
 					Especie e = new Especie();
 					e.setId(rs.getInt("id"));
 					e.setDescripcion(rs.getString("descripcion"));
-					
 					especies.add(e);
 				}
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
 		} finally {
 			try {
 				if(rs!=null) {rs.close();}
@@ -36,8 +32,6 @@ public class DataEspecies {
 				e.printStackTrace();
 			}
 		}
-		
-		
 		return especies;
 	}
 	
@@ -65,7 +59,6 @@ public class DataEspecies {
 				e.printStackTrace();
 			}
 		}
-		
 		return esp;
 	}
 	
@@ -77,12 +70,10 @@ public class DataEspecies {
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("INSERT INTO especie(descripcion) values(?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, esp.getDescripcion());
 			stmt.executeUpdate();
-			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next()){
                 esp.setId(keyResultSet.getInt(1));
             }
-			
 		}  catch (SQLException e) {
             e.printStackTrace();
 		} finally {
@@ -102,9 +93,6 @@ public class DataEspecies {
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("DELETE FROM especie WHERE id=?");
 			stmt.setInt(1, esp.getId());
 			stmt.executeUpdate();
-			
-
-			
 		}  catch (SQLException e) {
             e.printStackTrace();
 		} finally {
@@ -124,7 +112,6 @@ public class DataEspecies {
 			stmt.setString(1, especie.getDescripcion());
 			stmt.setInt(2, especie.getId());
 			stmt.executeUpdate();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -137,8 +124,8 @@ public class DataEspecies {
 		}		
 	}
 	
-	public Especie getByDescripcion(Especie especie) {
-		Especie esp = null;
+	public int getByDescripcion(Especie especie) {
+		int repetido = 0;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
@@ -147,11 +134,7 @@ public class DataEspecies {
 			stmt.setInt(2, especie.getId());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
-				esp = new Especie();
-				esp.setId(rs.getInt("id"));
-				esp.setDescripcion(rs.getString("descripcion"));
-			} else {
-				esp = new Especie();
+				repetido = 1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -164,7 +147,6 @@ public class DataEspecies {
 				e.printStackTrace();
 			}
 		}
-		
-		return esp;
+		return repetido;
 	}
 }

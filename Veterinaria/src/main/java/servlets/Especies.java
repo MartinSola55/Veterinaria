@@ -1,12 +1,10 @@
 package servlets;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.LinkedList;
 //java json
 //jersey
@@ -70,10 +68,9 @@ public class Especies extends HttpServlet {
 				String descripcion = request.getParameter("descripcion");
 				if (request.getParameter("id") == "") {
 					Especie especie = new Especie();
-					Especie repetido = new Especie();
 					especie.setDescripcion(descripcion);
-					repetido = el.getByDescripcion(especie);
-					if (!(descripcion.equals(repetido.getDescripcion()))) {
+					int repetido = el.getByDescripcion(especie);
+					if (repetido == 0) {
 						el.add(especie);
 						regAfectados = 1;						
 					} else {
@@ -82,11 +79,10 @@ public class Especies extends HttpServlet {
 				} else {
 					int ID = Integer.parseInt(request.getParameter("id"));
 					Especie especie = new Especie();
-					Especie repetido = new Especie();
 					especie.setId(ID);
 					especie.setDescripcion(descripcion);
-					repetido = el.getByDescripcion(especie);
-					if (!(descripcion.equals(repetido.getDescripcion()))) {
+					int repetido = el.getByDescripcion(especie);
+					if (repetido == 0) {
 						el.update(especie);
 						regAfectados = 1;						
 					} else {

@@ -1,4 +1,4 @@
-let header = ["ID", "Descripcion"];
+let header = ["Descripcion"];
 listar();
 
 function listar() {
@@ -23,7 +23,6 @@ function listadoEspecies(arrayHeader, data) {
     contenido += "<tbody>";
     for (let i = 0; i < data.length; i++) {
         contenido += "<tr>";
-        contenido += "<td class='text-center'>" + data[i].id + "</td>";
         contenido += "<td>" + data[i].descripcion + "</td>";
         contenido += "<td class='d-flex justify-content-center'>";
         contenido += "<button class='btn btn-outline-success me-4' onclick='modalEdit(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-pencil-square'></i></button>";
@@ -77,7 +76,7 @@ function limpiarCampos() {
     $(".limpiarCampo").val("");
     campos = $(".required");
     for (let i = 0; i < campos.length; i++) {
-        $(".campo" + i).removeClass("error");
+        $("#campo" + i).removeClass("error");
     }
     $("#btnAceptar").removeClass("eliminar");
 }

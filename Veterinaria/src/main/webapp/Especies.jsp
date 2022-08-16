@@ -42,8 +42,10 @@
 			            <div class="modal-body contenedor-modal align-items-center">
 			                <label class="mb-3">ID: </label>
 			                <input id="txtID" type="text" class="form-control limpiarCampo w-25 mb-3" disabled />
+			                
 			                <label id="campo0" class="mb-3">Descripción: </label>
 			                <input id="txtDescripcion" type="text" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required mb-3" />
+			                
 			            </div>
 			            <div class="modal-footer">
 			                <button id="btnCancelar" type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>

@@ -8,15 +8,23 @@ public class EspecieLogic {
 	private DataEspecies de = new DataEspecies();
 	
 	public LinkedList<Especie> getAll() {
-		LinkedList<Especie> especies = new LinkedList<Especie>();
-		especies = de.getAll();
-		return especies;
+		try {			
+			LinkedList<Especie> especies = new LinkedList<Especie>();
+			especies = de.getAll();
+			return especies;
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	public Especie getOne(int id) {
-		Especie especie = new Especie();
-		especie.setId(id);
-		especie = de.getOne(especie);
-		return especie;
+		try {			
+			Especie especie = new Especie();
+			especie.setId(id);
+			especie = de.getOne(especie);
+			return especie;
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	public void add (Especie esp) {
         try
@@ -45,12 +53,11 @@ public class EspecieLogic {
 			throw e;
 		}
 	}	
-	public Especie getByDescripcion (Especie esp) {
+	public int getByDescripcion (Especie esp) {
 		try
 		{
-			Especie especie = new Especie();
-			especie = de.getByDescripcion(esp);
-			return especie;
+			int repetido = de.getByDescripcion(esp);
+			return repetido;
 		} catch (Exception e)
 		{
 			throw e;

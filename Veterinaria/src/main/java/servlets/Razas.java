@@ -1,11 +1,9 @@
 package servlets;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import logic.EspecieLogic;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -67,14 +65,14 @@ public class Razas extends HttpServlet {
 			switch (request.getParameter("action")) {
 			case "save": {	
 				String descripcion = request.getParameter("descripcion");
-				int especie = Integer.parseInt(request.getParameter("especie"));
+				Especie e = new Especie();
 				if (request.getParameter("id") == "") {
 					Raza raza = new Raza();
-					Raza repetido = new Raza();
 					raza.setDescripcion(descripcion);
-					raza.setCod_especie(especie);
-					repetido = rl.getByDescripcion(raza);
-					if (!(descripcion.equals(repetido.getDescripcion()))) {
+					e.setId(Integer.parseInt(request.getParameter("especie")));
+					raza.setEspecie(e);
+					int repetido = rl.getByDescEsp(raza);						
+					if (repetido == 0) {
 						rl.add(raza);
 						regAfectados = 1;						
 					} else {
@@ -83,12 +81,12 @@ public class Razas extends HttpServlet {
 				} else {
 					int ID = Integer.parseInt(request.getParameter("id"));
 					Raza raza = new Raza();
-					Raza repetido = new Raza();
 					raza.setId(ID);
 					raza.setDescripcion(descripcion);
-					raza.setCod_especie(especie);
-					repetido = rl.getByDescripcion(raza);
-					if (!(descripcion.equals(repetido.getDescripcion()))) {
+					e.setId(Integer.parseInt(request.getParameter("especie")));
+					raza.setEspecie(e);
+					int repetido = rl.getByDescEsp(raza);
+					if (repetido == 0) {
 						rl.update(raza);
 						regAfectados = 1;						
 					} else {
@@ -106,6 +104,7 @@ public class Razas extends HttpServlet {
 			}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			regAfectados = 0;
 		}
 		String json = new Gson().toJson(regAfectados);

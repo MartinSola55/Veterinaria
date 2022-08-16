@@ -1,4 +1,4 @@
-let header = ["ID", "Descripcion", "Especie"];
+let header = ["Descripcion", "Especie"];
 listar();
 listadoEspecies();
 
@@ -24,9 +24,8 @@ function listadoRazas(arrayHeader, data) {
     contenido += "<tbody>";
     for (let i = 0; i < data.length; i++) {
         contenido += "<tr>";
-        contenido += "<td class='text-center'>" + data[i].id + "</td>";
         contenido += "<td>" + data[i].descripcion + "</td>";
-        contenido += "<td>" + data[i].desc_especie + "</td>";
+        contenido += "<td>" + data[i].especie.descripcion + "</td>";
         contenido += "<td class='d-flex justify-content-center'>";
         contenido += "<button class='btn btn-outline-success me-4' onclick='modalEdit(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-pencil-square'></i></button>";
         contenido += "<button class='btn btn-outline-danger ms-4' onclick='modalDelete(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-trash3'></i></button>";
@@ -68,7 +67,7 @@ function completarCampos(id) {
 			success : function(data) {
 		        $('#txtID').val(data['id']);
 	        	$('#txtDescripcion').val(data['descripcion']);
-        		$("#comboEspecies option[value = " + data['cod_especie'] + "]").attr('selected', 'selected');
+        		$("#comboEspecies option[value = " + data['especie']['id'] + "]").attr('selected', 'selected');
 			}
 		});
 }
@@ -98,7 +97,7 @@ function limpiarCampos() {
     $(".limpiarCampo").val("");
     campos = $(".required");
     for (let i = 0; i < campos.length; i++) {
-        $(".campo" + i).removeClass("error");
+        $("#campo" + i).removeClass("error");
     }
     $("#btnAceptar").removeClass("eliminar");
     $("#comboEspecies option").removeAttr('selected')

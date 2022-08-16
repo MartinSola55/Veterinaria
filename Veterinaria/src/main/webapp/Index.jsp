@@ -15,6 +15,7 @@
 		<%@ include file="Header.jsp" %>
 		<main>		
 			<h1 class="text-center">Inicio</h1>
+			<hr />
 		</main>
 		<%@ include file="Footer.jsp" %>
 	
