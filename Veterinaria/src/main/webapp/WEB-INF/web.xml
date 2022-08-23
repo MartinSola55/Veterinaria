@@ -3,6 +3,11 @@
   <display-name>Veterinaria</display-name>
   <welcome-file-list>
     <welcome-file>Index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   <servlet>
     <description></description>
@@ -25,5 +30,38 @@
     <servlet-name>Razas</servlet-name>
     <url-pattern>/Razas</url-pattern>
     <url-pattern>/razas</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Veterinarios</display-name>
+    <servlet-name>Veterinarios</servlet-name>
+    <servlet-class>servlets.Veterinarios</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Veterinarios</servlet-name>
+    <url-pattern>/Veterinarios</url-pattern>
+    <url-pattern>/veterinarios</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Practicas</display-name>
+    <servlet-name>Practicas</servlet-name>
+    <servlet-class>servlets.Practicas</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Practicas</servlet-name>
+    <url-pattern>/Practicas</url-pattern>
+    <url-pattern>/practicas</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Precios</display-name>
+    <servlet-name>Precios</servlet-name>
+    <servlet-class>servlets.Precios</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Precios</servlet-name>
+    <url-pattern>/Precios</url-pattern>
+    <url-pattern>/precios</url-pattern>
   </servlet-mapping>
 </web-app>

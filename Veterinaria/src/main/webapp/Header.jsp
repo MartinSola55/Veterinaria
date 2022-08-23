@@ -5,7 +5,9 @@
 	                <img src="img/Logo.png" alt="Logo veterinaria" width="50" height="50">
 	            </a>
 	            <a class="navbar-brand my-auto" href="Especies.jsp">Especies</a>        	            
-	            <a class="navbar-brand my-auto" href="Razas.jsp">Razas</a>        	            
+	            <a class="navbar-brand my-auto" href="Razas.jsp">Razas</a>
+	            <a class="navbar-brand my-auto" href="Veterinarios.jsp">Veterinarios</a>
+	            <a class="navbar-brand my-auto" href="Practicas.jsp">Practicas</a>             	            
 	        </div>
 	</div>  
 </header>
