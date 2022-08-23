@@ -43,7 +43,6 @@ public class Practicas extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-	private PrecioLogic preLog = new PrecioLogic();
 	PracticaLogic pl = new PracticaLogic();
     
    

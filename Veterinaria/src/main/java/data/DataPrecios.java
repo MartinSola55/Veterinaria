@@ -2,7 +2,7 @@ package data;
 import entities.*;
 import java.time.LocalDate;
 import java.sql.*;
-import java.util.LinkedList;
+
 
 public class DataPrecios {
 	
