@@ -8,6 +8,9 @@
 	            <a class="navbar-brand my-auto" href="Razas.jsp">Razas</a>
 	            <a class="navbar-brand my-auto" href="Veterinarios.jsp">Veterinarios</a>
 	            <a class="navbar-brand my-auto" href="Practicas.jsp">Practicas</a>             	            
+				<a class="navbar-brand my-auto" href="Clientes.jsp">Clientes</a>             	            
+				<a class="navbar-brand my-auto" href="Atenciones.jsp">Atenciones</a>             	            
+
 	        </div>
 	</div>  
 </header>

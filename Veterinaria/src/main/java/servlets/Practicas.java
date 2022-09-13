@@ -98,7 +98,7 @@ public class Practicas extends HttpServlet {
 		PracticaLogic pl = new PracticaLogic();
 		Precio pre= new Precio();
 
-		int regAfectados = 1;
+		int regAfectados = 0;
 		try {
 			switch (request.getParameter("action")) {
 			case "save": {

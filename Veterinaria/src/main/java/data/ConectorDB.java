@@ -5,14 +5,15 @@ import java.sql.*;
 public class ConectorDB {
 
 	private static ConectorDB instancia;
-	
+
 	private String driver="com.mysql.cj.jdbc.Driver";
 	private String host="us-cdbr-east-06.cleardb.net";
 	private String port="";
 	private String user="b8d2bf396af28d";
 	private String password="fdeb722e";
 	private String db="heroku_124fca0ef8ff963";
-	/*private String driver="com.mysql.cj.jdbc.Driver";
+	/*
+	private String driver="com.mysql.cj.jdbc.Driver";
 	private String host="localhost";
 	private String port="";
 	private String user="root";

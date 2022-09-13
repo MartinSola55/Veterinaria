@@ -1,9 +1,12 @@
-let header = ["ID","Veterinario","Animal","Fecha Pago","Fecha Atencion", "Pracrica"];
+let header = ["ID","Veterinario","Animal","Fecha Pago","Fecha Atencion", "Practica"];
 listar();
+listadoVeterinarios();
+listadoAnimales();
+listadoPracticas();
 
 function listar() {
-    $.get("Especies", function (data) {
-        listadoEspecies(header, data);
+    $.get("Atenciones", function (data) {
+        listadoAtenciones(header, data);
     });
 }
 
@@ -24,6 +27,12 @@ function listadoAtenciones(arrayHeader, data) {
     for (let i = 0; i < data.length; i++) {
         contenido += "<tr>";
         contenido += "<td>" + data[i].descripcion + "</td>";
+        contenido += "<td>" + data[i].descripcion + "</td>";
+        contenido += "<td>" + data[i].veterinario.nombre + data[i].veterinario.apellido + "</td>";
+        contenido += "<td>" + data[i].animal.desripcion + "</td>";
+        contenido += "<td>" + data[i].fecha_pago + "</td>";
+        contenido += "<td>" + data[i].fecha_atencion+ "</td>";
+        contenido += "<td>" + data[i].practica.descripcion + "</td>";
         contenido += "<td class='d-flex justify-content-center'>";
         contenido += "<button class='btn btn-outline-success me-4' onclick='modalEdit(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-pencil-square'></i></button>";
         contenido += "<button class='btn btn-outline-danger ms-4' onclick='modalDelete(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-trash3'></i></button>";
@@ -36,30 +45,89 @@ function listadoAtenciones(arrayHeader, data) {
     
 }
 
+
+function listadoVeterinarios() {	
+	$.ajax({
+		url : 'Veterinarios',
+		method: 'get',
+		success : function(data) {
+			let control = $("#comboVeterinarios");
+			let contenido = "";
+	        contenido += "<option value='' disabled >--Seleccione un veterinario--</option>";
+	        for (let i = 0; i < data.length; i++) {
+	            contenido += "<option value='" + data[i]["id"] + "'>";
+	            contenido += data[i]["nombre"] + " " +data[i]["apellido"];
+	            contenido += "</option>";
+	        }
+	        control.html(contenido);
+		}
+	});
+}
+
+function listadoAnimales() {	
+	$.ajax({
+		url : 'Razas',
+		method: 'get',
+		success : function(data) {
+			let control = $("#comboAnimales");
+			let contenido = "";
+	        contenido += "<option value='' disabled >--Seleccione un animal--</option>";
+	        for (let i = 0; i < data.length; i++) {
+	            contenido += "<option value='" + data[i]["id"] + "'>";
+	            contenido += data[i]["descripcion"];
+	            contenido += "</option>";
+	        }
+	        control.html(contenido);
+		}
+	});
+}
+
+
+function listadoPracticas() {	
+	$.ajax({
+		url : 'Practicas',
+		method: 'get',
+		success : function(data) {
+			let control = $("#comboPracticas");
+			let contenido = "";
+	        contenido += "<option value='' disabled >--Seleccione una practica--</option>";
+	        for (let i = 0; i < data.length; i++) {
+	            contenido += "<option value='" + data[i]["id"] + "'>";
+	            contenido += data[i]["descripcion"];
+	            contenido += "</option>";
+	        }
+	        control.html(contenido);
+		}
+	});
+}
+
+
 function completarCampos(id) {
 	$.ajax({
-			url : 'Especies',
+			url : 'Atenciones',
 			method: 'get',
 			data : {
 				id : id,
-				pagina: 'Especies',
+				pagina: 'Atenciones',
 			},
 			success : function(data) {
 		        $('#txtID').val(data['id']);
-	        	$('#txtDescripcion').val(data['descripcion']);
+	        	$("#comboVeterinarios option[value = " + data['veterinario']['id'] + "]").attr('selected', 'selected');
+	        	$("#comboAnimales option[value = " + data['animal']['id'] + "]").attr('selected', 'selected');
+	        	$("#comboPracticas option[value = " + data['practica']['id'] + "]").attr('selected', 'selected');
 			}
 		});
 }
 
 function modalEdit(id) {
-    $("#staticBackdropLabel").text("Editar especie");
+    $("#staticBackdropLabel").text("Editar atención");
     limpiarCampos();
     habilitarCampos();
 	completarCampos(id);
 }
 
 function modalDelete(id) {
-    $("#staticBackdropLabel").text("Eliminar especie");
+    $("#staticBackdropLabel").text("Eliminar atención");
     limpiarCampos();
     deshabilitarCampos();
 	completarCampos(id);
@@ -79,6 +147,9 @@ function limpiarCampos() {
         $("#campo" + i).removeClass("error");
     }
     $("#btnAceptar").removeClass("eliminar");
+    $("#comboVeterinarios option").removeAttr('selected')
+    $("#comboAnimales option").removeAttr('selected')
+    $("#comboPracticas option").removeAttr('selected')
 }
 
 function habilitarCampos() {
@@ -105,40 +176,44 @@ function campoRequired() {
 function confirmarCambios() {
     if (campoRequired()) {
         let id = $("#txtID").val();
-        let descripcion = $("#txtDescripcion").val();
+        let veterinario = $("#comboVeterinarios").val();
+        let animal = $("#comboAnimales").val();
+        let practica = $("#comboPracticas").val();
         let json = {
 			"id": id,
-			"descripcion": descripcion,
+			"veterinario": veterinario,
+			"animal": animal,
+			"practica": practica,
 			"action": ""
 		};
         if ($("#btnAceptar").hasClass("eliminar")) {
-            if (confirm("Seguro que desea eliminar la especie?") == 1) {
+            if (confirm("Seguro que desea eliminar la atención?") == 1) {
 				json["action"] = "delete";
-                crudEspecie(json);
+                crudAtencion(json);
             }
         } else {
 			json["action"] = "save";
-            crudEspecie(json);
+            crudAtencion(json);
         }
     }
 }
 
-function crudEspecie(json) {
+function crudAtencion(json) {
     $.ajax({
         type: "POST",
-        url: "Especies",
+        url: "Atenciones",
         dataType: 'json',
         data: json,
         success: function (data) {
             if (data == 1) {
                 if ($("#btnAceptar").hasClass("eliminar")) {
-                    alert("La especie se elimino correctamente");
+                    alert("La atención se elimino correctamente");
                 } else {
-                    alert("La especie se guardo correctamente");
+                    alert("La atención se guardo correctamente");
                 }
          		location.reload();
             } else if ( data == -1) {
-                alert("La especie ingresada ya existe");
+                alert("La atención ingresada ya existe");
             } else {
                 alert("Los cambios no se guardaron. Error en la base de datos");
             }

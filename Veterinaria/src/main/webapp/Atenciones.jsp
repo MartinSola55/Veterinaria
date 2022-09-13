@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Especies</title>
+		<title>Atenciones</title>
 		<link rel="icon" type="image/jpg" href="img/favicon.png" />
 	    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -16,7 +16,7 @@
 	<body>
 	<%@ include file="Header.jsp" %>
 	<main>
-		<h1 class="text-center mt-5">Especies</h1>
+		<h1 class="text-center mt-5">Atenciones</h1>
 		
 		
 			<div id="tabla-atencion" class="container body-content mt-5">
@@ -44,10 +44,13 @@
 			                <input id="txtID" type="text" class="form-control limpiarCampo w-25 mb-3" disabled />
 			                
 			                <label id="campo0" class="mb-3">Veterinario: </label>
-			                 <select id="comboVeterinarios" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required mb-3" ></select>
+			                <select id="comboVeterinarios" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required mb-3" ></select>
 			                
 			        		<label id="campo1" class="mb-3">Animal: </label>
-			                 <select id="comboAnimales" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required mb-3" ></select>
+			                <select id="comboAnimales" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required mb-3" ></select>
+			                 
+			                <label id="campo2" class="mb-3">Práctica: </label>
+			                <select id="comboPracticas" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required mb-3" ></select>
 			                
 			            </div>
 			            <div class="modal-footer">
