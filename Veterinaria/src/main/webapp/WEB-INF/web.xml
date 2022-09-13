@@ -76,4 +76,15 @@
     <url-pattern>/clientes</url-pattern>
     <url-pattern>/CLIENTES</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Atenciones</display-name>
+    <servlet-name>Atenciones</servlet-name>
+    <servlet-class>servlets.Atenciones</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Atenciones</servlet-name>
+    <url-pattern>/Atenciones</url-pattern>
+    <url-pattern>/atenciones</url-pattern>
+  </servlet-mapping>
 </web-app>
