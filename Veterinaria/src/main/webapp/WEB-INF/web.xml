@@ -64,4 +64,16 @@
     <url-pattern>/Precios</url-pattern>
     <url-pattern>/precios</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Clientes</display-name>
+    <servlet-name>Clientes</servlet-name>
+    <servlet-class>servlets.Clientes</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Clientes</servlet-name>
+    <url-pattern>/Clientes</url-pattern>
+    <url-pattern>/clientes</url-pattern>
+    <url-pattern>/CLIENTES</url-pattern>
+  </servlet-mapping>
 </web-app>
