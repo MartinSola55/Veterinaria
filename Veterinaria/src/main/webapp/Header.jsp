@@ -8,7 +8,7 @@
 	            <a class="navbar-brand my-auto" href="Razas.jsp">Razas</a>
 	            <a class="navbar-brand my-auto" href="Veterinarios.jsp">Veterinarios</a>
 	            <a class="navbar-brand my-auto" href="Practicas.jsp">Practicas</a>             	            
-	            <a class="navbar-brand my-auto" href="Clientes.jsp">CLIENTES</a>             	            
+	            <a class="navbar-brand my-auto" href="Clientes.jsp">Clientes</a>             	            
 
 	        </div>
 	</div>  
