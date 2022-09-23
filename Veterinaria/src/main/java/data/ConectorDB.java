@@ -12,7 +12,7 @@ public class ConectorDB {
 	private String user="b8d2bf396af28d";
 	private String password="fdeb722e";
 	private String db="heroku_124fca0ef8ff963";
-	/*
+	/* 
 	private String driver="com.mysql.cj.jdbc.Driver";
 	private String host="localhost";
 	private String port="";
