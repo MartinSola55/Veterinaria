@@ -38,7 +38,6 @@ public class Clientes extends HttpServlet {
 			if (request.getParameter("id") != null) {			
 				int id = Integer.parseInt(request.getParameter("id"));
 				Cliente cliente = cl.getOne(id);	
-				//System.out.println(cliente.getApellido());
 				String json = new Gson().toJson(cliente);
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");

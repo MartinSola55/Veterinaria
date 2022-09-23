@@ -87,4 +87,16 @@
     <url-pattern>/Atenciones</url-pattern>
     <url-pattern>/atenciones</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Mascotas</display-name>
+    <servlet-name>Mascotas</servlet-name>
+    <servlet-class>servlets.Mascotas</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Mascotas</servlet-name>
+    <url-pattern>/Mascotas</url-pattern>
+    <url-pattern>/mascotas</url-pattern>
+    <url-pattern>/MASCOTAS</url-pattern>
+  </servlet-mapping>
 </web-app>

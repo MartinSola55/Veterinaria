@@ -6,8 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.LinkedList;
-//java json
-//jersey
 
 import com.google.gson.Gson;
 
@@ -37,7 +35,7 @@ public class Especies extends HttpServlet {
 			EspecieLogic el = new EspecieLogic();
 			if (request.getParameter("id") != null) {			
 				int id = Integer.parseInt(request.getParameter("id"));
-				Especie especie = el.getOne(id);	
+				Especie especie = el.getOne(id);
 				String json = new Gson().toJson(especie);
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");

@@ -30,9 +30,10 @@ function listadoClientes(arrayHeader, data) {
         contenido += "<td>" + data[i].direccion + "</td>";
         contenido += "<td>" + data[i].telefono + "</td>";
         contenido += "<td>" + data[i].email + "</td>";
-        contenido += "<td class='d-flex justify-content-center'>";
-        contenido += "<button class='btn btn-outline-success me-4' onclick='modalEdit(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-pencil-square'></i></button>";
-        contenido += "<button class='btn btn-outline-danger ms-4' onclick='modalDelete(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-trash3'></i></button>";
+        contenido += "<td class='d-flex justify-content-between'>";
+        contenido += "<button class='btn btn-outline-success ms-4' onclick='modalEdit(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-pencil-square'></i></button>";
+        contenido += "<button class='btn btn-outline-danger' onclick='modalDelete(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-trash3'></i></button>";
+        contenido += "<button class='btn btn-outline-light me-4' onclick='selectPersona(" + data[i].id + ")'>Seleccionar</button>";
         contenido += "</td>";
         contenido += "</tr>";
     }
@@ -166,4 +167,8 @@ function crudCliente(json) {
             }
         }
     });
+}
+
+function selectPersona(id) {
+    window.location.href = "/Veterinaria/DatosCliente.jsp?id=" + id;
 }
