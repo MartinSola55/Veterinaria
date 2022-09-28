@@ -66,7 +66,7 @@ function listadoVeterinarios() {
 
 function listadoAnimales() {	
 	$.ajax({
-		url : 'Razas',
+		url : 'Mascotas',
 		method: 'get',
 		success : function(data) {
 			let control = $("#comboAnimales");

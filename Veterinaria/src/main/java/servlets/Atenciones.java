@@ -8,10 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import logic.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import entities.*;
 
@@ -39,17 +41,28 @@ public class Atenciones extends HttpServlet {
 			if (request.getParameter("id") != null) {			
 				int id = Integer.parseInt(request.getParameter("id"));
 				Atencion atencion= al.getOne(id);	
-				String json = new Gson().toJson(atencion);
+		        GsonBuilder gsonBuilder = new GsonBuilder();
+		        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
+		        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+		        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());	        
+		        Gson gson = gsonBuilder.setPrettyPrinting().create();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
-				response.getWriter().write(json);
+				response.getWriter().write(gson.toJson(atencion));
 				
-			} else {
-				LinkedList<Atencion> atenciones= al.getAll();		
-				String json = new Gson().toJson(atenciones);
+			} else if (request.getParameter("idCliente") != null){			
+				int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+				LinkedList<Atencion> atenciones = al.getAll(idCliente);
+				System.out.println(atenciones);
+		        GsonBuilder gsonBuilder = new GsonBuilder();
+		        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
+		        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+		        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());	        
+		        Gson gson = gsonBuilder.setPrettyPrinting().create();
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
-				response.getWriter().write(json);
+				response.getWriter().write(gson.toJson(atenciones));
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,8 +78,9 @@ public class Atenciones extends HttpServlet {
 		/*animal logic*/
 		
 		Veterinario vet= new Veterinario();
-		/*animla*/
+		Mascota mas = new Mascota();
 		Practica prac = new Practica();
+		LinkedList<Practica> practicas = new LinkedList<>();
 		
 		int regAfectados = 0;
 		try {
@@ -74,38 +88,56 @@ public class Atenciones extends HttpServlet {
 			case "save": {	
 				if (request.getParameter("id") == "") {
 					Atencion atencion = new Atencion();
-					prac.setId(Integer.parseInt(request.getParameter("practica")));
-					vet.setId(Integer.parseInt(request.getParameter("veterinario")));
-					/*animal*/
-				
-					atencion.setPractica(prac);
+					//prac.setId(Integer.parseInt(request.getParameter("practica")));
+					prac.setId(74);
+					practicas.add(prac);
+					vet.setId(Integer.parseInt(request.getParameter("id_veterinario")));
+					mas.setId(Integer.parseInt(request.getParameter("id_mascota")));
+					atencion.setPracticas(practicas);
 					atencion.setVeterinario(vet);
-					/*atencion.setAnimal*/
-					atencion.setFecha_atencion(LocalDateTime.now());
+					atencion.setAnimal(mas);
+					LocalDate fecha_atencion = LocalDate.parse(request.getParameter("atencion"));
+					atencion.setFecha_atencion(fecha_atencion);
+					LocalDate fecha_pago= LocalDate.parse(request.getParameter("pago"));
+					atencion.setFecha_pago(fecha_pago);
 					
-					al.add(atencion);
+					boolean repetido = al.esRepetido(atencion);
+					if (repetido == false) {
+						al.add(atencion);
+						regAfectados = 1;
+						System.out.println(atencion);
+					} else {
+						regAfectados = -1;
+					}
 
 				} else {
 					int ID = Integer.parseInt(request.getParameter("id"));
 					Atencion atencion = new Atencion();
 					atencion.setId(ID);
 					prac.setId(Integer.parseInt(request.getParameter("practica")));
-					vet.setId(Integer.parseInt(request.getParameter("veterinario")));
-					/*animal*/
-					
-					atencion.setPractica(prac);
+					vet.setId(Integer.parseInt(request.getParameter("id_veterinario")));
+					mas.setId(Integer.parseInt(request.getParameter("id_mascota")));
+					practicas.add(prac);
+					atencion.setPracticas(practicas);
 					atencion.setVeterinario(vet);
-					/*atencion.setAnimal*/
-					atencion.setFecha_atencion(LocalDateTime.now());
+					atencion.setAnimal(mas);
+					atencion.setFecha_atencion(LocalDate.now());
 					
-					al.update(atencion);					
-				
+					boolean repetido = al.esRepetido(atencion);
+					if (repetido == false) {
+						al.update(atencion);
+						regAfectados = 1;						
+					} else {
+						regAfectados = -1;
+					}			
+				}
 				break;
 			}
-			}
+			
 			case "delete": {
 				Atencion atencion = new Atencion();
-				atencion.setId(Integer.parseInt(request.getParameter("id")));
+				int ID = Integer.parseInt(request.getParameter("id"));
+				atencion.setId(ID);
 				al.delete(atencion);
 				regAfectados = 1;
 				break;
