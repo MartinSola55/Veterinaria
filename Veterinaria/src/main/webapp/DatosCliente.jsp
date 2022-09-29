@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
     <%@ page import = "entities.*"%>
 	<%@ page import="java.util.LinkedList" %>
+	<%@ page import="logic.*" %>
+	<%@ page import="data.*" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,6 +14,8 @@
     	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
    	    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
    	    <link href="styles/mis-estilos.css" rel="stylesheet" type="text/css" />
+
+	
 	</head>
 	<body>
 	<%@ include file="Header.jsp" %>
@@ -79,9 +83,11 @@
 			        		<label id="campo1" class="mb-3">Animal: </label>
 			                <select id="comboAnimales" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required2 mb-3" ></select>
 			                 
-			                <label id="campo2" class="mb-3">Práctica: </label>
-			                <select id="comboPracticas" class="form-control limpiarCampo habilitarCampo deshabilitarCampo  mb-3" ></select>
-			                
+			               <label id="campo2" class="mb-3">Prácticas: </label>
+			              	<select id="comboPracticas" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required2 mb-3" ></select>
+			               <!--<label><input id="cb1" type="checkbox" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required2 mb-3" disabled />Uno</label>
+			               <label><input type="checkbox" id="comboPracticas" value="first_checkbox" class=" limpiarCampo habilitarCampo deshabilitarCampo required2 mb-3"> Este es mi primer checkbox</label><br>-->
+			               
 			                <label id="campo3" class="mb-3">Fecha de atención: </label>
 			               	<input id="txtAtencion" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required2 mb-3" />
 			                

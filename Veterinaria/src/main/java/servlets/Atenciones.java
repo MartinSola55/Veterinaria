@@ -40,7 +40,9 @@ public class Atenciones extends HttpServlet {
 			AtencionLogic al = new AtencionLogic();
 			if (request.getParameter("id") != null) {			
 				int id = Integer.parseInt(request.getParameter("id"));
-				Atencion atencion= al.getOne(id);	
+
+				Atencion atencion= al.getOne(id);
+
 		        GsonBuilder gsonBuilder = new GsonBuilder();
 		        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
 		        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
@@ -53,7 +55,6 @@ public class Atenciones extends HttpServlet {
 			} else if (request.getParameter("idCliente") != null){			
 				int idCliente = Integer.parseInt(request.getParameter("idCliente"));
 				LinkedList<Atencion> atenciones = al.getAll(idCliente);
-				System.out.println(atenciones);
 		        GsonBuilder gsonBuilder = new GsonBuilder();
 		        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
 		        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
@@ -88,8 +89,9 @@ public class Atenciones extends HttpServlet {
 			case "save": {	
 				if (request.getParameter("id") == "") {
 					Atencion atencion = new Atencion();
-					//prac.setId(Integer.parseInt(request.getParameter("practica")));
-					prac.setId(74);
+					prac.setId(Integer.parseInt(request.getParameter("practica")));
+					System.out.println(Integer.parseInt(request.getParameter("practica")));
+					//prac.setId(300);
 					practicas.add(prac);
 					vet.setId(Integer.parseInt(request.getParameter("id_veterinario")));
 					mas.setId(Integer.parseInt(request.getParameter("id_mascota")));
@@ -105,7 +107,6 @@ public class Atenciones extends HttpServlet {
 					if (repetido == false) {
 						al.add(atencion);
 						regAfectados = 1;
-						System.out.println(atencion);
 					} else {
 						regAfectados = -1;
 					}
@@ -121,7 +122,10 @@ public class Atenciones extends HttpServlet {
 					atencion.setPracticas(practicas);
 					atencion.setVeterinario(vet);
 					atencion.setAnimal(mas);
-					atencion.setFecha_atencion(LocalDate.now());
+					LocalDate fecha_atencion = LocalDate.parse(request.getParameter("atencion"));
+					atencion.setFecha_atencion(fecha_atencion);
+					LocalDate fecha_pago= LocalDate.parse(request.getParameter("pago"));
+					atencion.setFecha_pago(fecha_pago);
 					
 					boolean repetido = al.esRepetido(atencion);
 					if (repetido == false) {

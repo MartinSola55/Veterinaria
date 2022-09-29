@@ -8,7 +8,16 @@ public class Veterinario {
 	private String direccion;
 	private String telefono;
 	private String email;
+	private int eliminado;
 	
+	
+	
+	public int getEliminado() {
+		return eliminado;
+	}
+	public void setEliminado(int eliminado) {
+		this.eliminado = eliminado;
+	}
 	public int getId() {
 		return id;
 	}

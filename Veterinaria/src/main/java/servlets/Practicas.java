@@ -118,7 +118,7 @@ public class Practicas extends HttpServlet {
 						//pre= preLog.addAPractica(Double.parseDouble(precio));
 						//practica.setPrecio(pre);
 						//pl.add(practica);
-						//regAfectados = 1;		
+						regAfectados = 1;		
 
 				} else {
 					int ID = Integer.parseInt(request.getParameter("id"));
@@ -139,7 +139,7 @@ public class Practicas extends HttpServlet {
 				
 						//preLog.update(pre);
 						//pl.update(practica);
-						//regAfectados = 1;
+						regAfectados = 1;
 			
 				}
 				break;
@@ -156,7 +156,7 @@ public class Practicas extends HttpServlet {
 				pl.delete(practica);
 				//pl.delete(practica);
 				//preLog.delete(aBorrar);				
-				//regAfectados = 1;		
+				regAfectados = 1;		
 				break;
 			}
 			}

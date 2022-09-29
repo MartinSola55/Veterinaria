@@ -74,7 +74,8 @@ public class Mascotas extends HttpServlet {
 		try {
 			switch (request.getParameter("action")) {
 			case "save": {	
-				LocalDate fecha_nac = LocalDate.parse(request.getParameter("fecha_nac"));
+				//LocalDate fecha_nac = LocalDate.parse(request.getParameter("fecha_nac"));
+				LocalDate fecha_nac = LocalDate.now();
 				String nombre = request.getParameter("nombre");
 				int sexo = Integer.parseInt(request.getParameter("sexo"));
 				Raza raza = new Raza();

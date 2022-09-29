@@ -1,6 +1,6 @@
 package data;
 import entities.*;
-import logic.PrecioLogic;
+import logic.*;
 
 import java.sql.*;
 import java.util.LinkedList;
@@ -8,6 +8,7 @@ import java.util.LinkedList;
 public class DataPracticas {
 	
 	private PrecioLogic pl= new PrecioLogic();
+	private AtencionPracticaLogic apl=new AtencionPracticaLogic();
 	
 	public LinkedList<Practica> getAll(){
 		Statement stmt=null;
@@ -22,6 +23,7 @@ public class DataPracticas {
 					Practica p = new Practica();
 					p.setId(rs.getInt("id"));
 					p.setDescripcion(rs.getString("descripcion"));
+					p.setEliminado(rs.getInt("eliminado"));
 					Precio pre= pl.getOne(rs.getInt("precio"));
 					p.setPrecio(pre);
 				
@@ -58,6 +60,7 @@ public class DataPracticas {
 				pra = new Practica();
 				pra.setId(rs.getInt("id"));
 				pra.setDescripcion(rs.getString("descripcion"));
+				pra.setEliminado(rs.getInt("eliminado"));
 				Precio pre= pl.getOne(rs.getInt("precio"));					
 				pra.setPrecio(pre);
 
@@ -96,9 +99,7 @@ public class DataPracticas {
 			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next()){
-                pra.setId(keyResultSet.getInt(1));
-                
-             
+                pra.setId(keyResultSet.getInt(1));      
             }
             
             con.commit();
@@ -126,10 +127,11 @@ public class DataPracticas {
 		Connection con=ConectorDB.getInstancia().getConn();
 		try {
 			con.setAutoCommit(false);
-			pl.delete(pra.getPrecio());
-			stmt=ConectorDB.getInstancia().getConn().prepareStatement("DELETE FROM practica WHERE id=?");
+			stmt=ConectorDB.getInstancia().getConn().prepareStatement("UPDATE practica SET eliminado=1 WHERE id=?");
 			stmt.setInt(1, pra.getId());
-			stmt.executeUpdate();	
+			stmt.executeUpdate();
+			pl.delete(pra.getPrecio());
+
 			
 			con.commit();
 			
@@ -155,7 +157,7 @@ public class DataPracticas {
 		try {
 			con.setAutoCommit(false);
 			pl.update(practica.getPrecio());
-			stmt=ConectorDB.getInstancia().getConn().prepareStatement("UPDATE practica SET descripcion =? WHERE id=?");
+			stmt=ConectorDB.getInstancia().getConn().prepareStatement("UPDATE practica SET descripcion =? WHERE id=? AND eliminado=0");
 			stmt.setString(1, practica.getDescripcion());
 			stmt.setInt(2, practica.getId());
 			stmt.executeUpdate();
@@ -182,7 +184,7 @@ public class DataPracticas {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt=ConectorDB.getInstancia().getConn().prepareStatement("SELECT * FROM practica WHERE descripcion = ? AND NOT id = ?");
+			stmt=ConectorDB.getInstancia().getConn().prepareStatement("SELECT * FROM practica WHERE descripcion = ? AND NOT id = ?  AND eliminado=0");
 			stmt.setString(1, practica.getDescripcion());
 			stmt.setInt(2, practica.getId());
 			rs=stmt.executeQuery();

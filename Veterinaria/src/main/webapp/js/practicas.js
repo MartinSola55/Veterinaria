@@ -24,6 +24,7 @@ function listadoPracticas(arrayHeader, data) {
     contenido += "</thead>";
     contenido += "<tbody>";
     for (let i = 0; i < data.length; i++) {
+	if (data[i].eliminado == 0){
         contenido += "<tr>";
         contenido += "<td>" + data[i].id+ "</td>";
         contenido += "<td class='text-center'>" + data[i].descripcion + "</td>";
@@ -35,6 +36,7 @@ function listadoPracticas(arrayHeader, data) {
         contenido += "<button class='btn btn-outline-danger ms-4' onclick='modalDelete(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-trash3'></i></button>";
         contenido += "</td>";
         contenido += "</tr>";
+    }
     }
     contenido += "</tbody>";
     contenido += "</table>";

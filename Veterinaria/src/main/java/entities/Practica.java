@@ -4,7 +4,16 @@ public class Practica {
 	private int id;
 	private String descripcion;
 	private Precio precio;
+	private int eliminado;
 	
+	
+	
+	public int getEliminado() {
+		return eliminado;
+	}
+	public void setEliminado(int eliminado) {
+		this.eliminado = eliminado;
+	}
 	public int getId() {
 		return id;
 	}

@@ -27,9 +27,6 @@ public class DataAtenciones {
 		try {
 			
 			con.setAutoCommit(false);
-			System.out.println(atencion);
-			System.out.println(atencion.getVeterinario());
-			System.out.println(atencion.getVeterinario().getId());
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("INSERT INTO atencion(id_veterinario,id_mascota,fecha_pago,fecha_atencion) values(?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, atencion.getVeterinario().getId());
 			stmt.setInt(2, atencion.getAnimal().getId());
@@ -43,6 +40,7 @@ public class DataAtenciones {
             }
             
             apl.add(atencion);
+            
             con.commit();
 			
 		}  catch (SQLException e) {
@@ -67,11 +65,16 @@ public class DataAtenciones {
 		PreparedStatement stmt=null;
 		Connection con=ConectorDB.getInstancia().getConn();
 		try {
+			
 			con.setAutoCommit(false);
-			apl.delete(atencion);
+			
+			apl.deleteA(atencion);
+			
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("DELETE FROM atencion WHERE id=?");
 			stmt.setInt(1, atencion.getId());
 			stmt.executeUpdate();
+			
+			
 			con.commit();
 			
 		}  catch (SQLException e) {
@@ -133,17 +136,17 @@ public class DataAtenciones {
 			if(rs!=null && rs.next() && rs2!=null) {
 				at = new Atencion();
 				at.setId(rs.getInt("id"));
-				at.setVeterinario(vl.getOne(rs.getInt("veterinario")));
-				at.setAnimal(ml.getOne(rs.getInt("mascota")));
+				at.setVeterinario(vl.getOne(rs.getInt("id_veterinario")));
+				at.setAnimal(ml.getOne(rs.getInt("id_mascota")));
 				at.setFecha_pago(rs.getObject("fecha_pago",LocalDate.class));
 				at.setFecha_atencion(rs.getObject("fecha_atencion",LocalDate.class));
-				//at.setPracticas(pl.getOne(rs2.getInt("practica_id")));
 				
 				while(rs2.next()) {
 					Practica prac = new Practica();
 					prac=pl.getOne(rs2.getInt("practica_id"));
 					practicas.add(prac);
 				}
+
 				at.setPracticas(practicas);
 				
 			}
@@ -168,7 +171,6 @@ public class DataAtenciones {
 		PreparedStatement stmt2=null;
 		ResultSet rs2=null;
 		LinkedList<Atencion> atenciones= new LinkedList<>();
-		System.out.println(cli.getId());
 		
 		try {
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("SELECT * FROM atencion ate INNER JOIN"
@@ -178,24 +180,30 @@ public class DataAtenciones {
 			stmt.setInt(1, cli.getId());
 			rs=stmt.executeQuery();
 			
-			
-			
+		
 			if(rs!=null) {
 				while(rs.next()) {
 					Atencion at = new Atencion();
-					at.setVeterinario(vl.getOne(rs.getInt("id_veterinario")));
-					at.setAnimal(ml.getOne(rs.getInt("id_mascota")));
+					at.setId(rs.getInt("ate.id"));
+					at.setVeterinario(vl.getOne(rs.getInt("ate.id_veterinario")));
+					at.setAnimal(ml.getOne(rs.getInt("ate.id_mascota")));
 					at.setFecha_pago(rs.getObject("fecha_pago",LocalDate.class));
 					at.setFecha_atencion(rs.getObject("fecha_atencion",LocalDate.class));
 
 					
-				/*	stmt2=ConectorDB.getInstancia().getConn().prepareStatement("SELECT * FROM atencion_practica ap WHERE ap.atencion_id=?");
-					stmt2.setInt(1, cli.getId());
+					stmt2=ConectorDB.getInstancia().getConn().prepareStatement("SELECT * FROM atencion_practica ap WHERE ap.atencion_id=?");
+					stmt2.setInt(1, at.getId());
 					rs2=stmt2.executeQuery();
 					if(rs2!=null) {
-						at.setPractica(pl.getOne(rs2.getInt("practica_id")));
-					}*/
-					System.out.println("LLEGA");
+						LinkedList<Practica> practicas=new LinkedList();
+						while(rs2.next()) {
+						Practica pra= new Practica();
+						pra=pl.getOne(rs2.getInt("practica_id"));
+						practicas.add(pra);
+						}
+						at.setPracticas(practicas);
+					}
+
 				
 					atenciones.add(at);
 				}
@@ -215,7 +223,7 @@ public class DataAtenciones {
 				e.printStackTrace();
 			}
 	}
-		System.out.println(atenciones);
+
 		return atenciones;	
 }
 

@@ -17,6 +17,7 @@ public class DataAtencionesPracticas {
 		
 		try {
 			con.setAutoCommit(false);
+			System.out.println(atencion);
 			
 			 for (Practica practica : atencion.getPracticas()){
 				 
@@ -64,16 +65,34 @@ public class DataAtencionesPracticas {
             	e.printStackTrace();
             }
 		}
-
 }
 
-	public void delete(Atencion atencion) {
+	public void deleteA(Atencion atencion) {
 		PreparedStatement stmt=null;
 		try {
 			stmt=ConectorDB.getInstancia().getConn().prepareStatement("DELETE FROM atencion_practica WHERE atencion_id=?");
-			stmt.setInt(1, atencion.getId());	
-			
-			
+			stmt.setInt(1, atencion.getId());
+			stmt.executeUpdate();
+
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(stmt!=null)stmt.close();
+                ConectorDB.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+		
+	}
+
+	public void deleteP(Practica practica) {
+		PreparedStatement stmt=null;
+		try {
+			stmt=ConectorDB.getInstancia().getConn().prepareStatement("DELETE FROM atencion_practica WHERE practica_id=?");
+			stmt.setInt(1, practica.getId());	
+			stmt.executeUpdate();
 		}  catch (SQLException e) {
             e.printStackTrace();
 		} finally {

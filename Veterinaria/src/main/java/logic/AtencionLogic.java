@@ -10,16 +10,36 @@ public class AtencionLogic {
 	DataAtenciones da= new DataAtenciones();
 
 	public void add(Atencion atencion) {
-		da.add(atencion);
+		try
+		{
+			da.add(atencion);
+		} catch (Exception e)
+		{
+			throw e;
+		}
 	}
+	
 
 	public void delete(Atencion atencion) {
-		da.delete(atencion);
-		
+		try
+		{
+			da.delete(atencion);
+		} catch (Exception e)
+		{
+			throw e;
+		}
 	}
 
 	public void update(Atencion atencion) {
-		da.update(atencion);
+		try
+		{
+			da.update(atencion);
+
+		} catch (Exception e)
+		{
+			throw e;
+	
+	}
 		
 	}
 
@@ -40,7 +60,14 @@ public class AtencionLogic {
 	}
 
 	public boolean esRepetido(Atencion atencion) {
-		return da.esRepetido(atencion);
+		try
+		{
+			boolean repetido = da.esRepetido(atencion);
+			return repetido;
+		} catch (Exception e)
+		{
+			throw e;
+		}
 	}
 
 }

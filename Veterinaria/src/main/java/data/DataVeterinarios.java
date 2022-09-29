@@ -24,6 +24,7 @@ public class DataVeterinarios {
 					v.setDireccion(rs.getString("direccion"));
 					v.setTelefono(rs.getString("telefono"));
 					v.setEmail(rs.getString("email"));
+					v.setEliminado(rs.getInt("eliminado"));
 					
 					
 					veterinarios.add(v);
@@ -52,7 +53,7 @@ public class DataVeterinarios {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt=ConectorDB.getInstancia().getConn().prepareStatement("SELECT * FROM veterinario WHERE id=?");
+			stmt=ConectorDB.getInstancia().getConn().prepareStatement("SELECT * FROM veterinario WHERE id=? AND eliminado=0");
 			stmt.setInt(1, veterinario.getId());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
@@ -64,6 +65,7 @@ public class DataVeterinarios {
 				vet.setDireccion(rs.getString("direccion"));
 				vet.setTelefono(rs.getString("telefono"));
 				vet.setEmail(rs.getString("email"));
+				vet.setEliminado(rs.getInt("eliminado"));
 				
 			}
 		} catch (SQLException e) {
@@ -116,12 +118,10 @@ public class DataVeterinarios {
 	public void delete(Veterinario vet) {
 		PreparedStatement stmt=null;
 		try {
-			stmt=ConectorDB.getInstancia().getConn().prepareStatement("DELETE FROM veterinario WHERE id=?");
+			stmt=ConectorDB.getInstancia().getConn().prepareStatement("UPDATE veterinario SET eliminado=1 WHERE id=?");
 			stmt.setInt(1, vet.getId());
 			stmt.executeUpdate();
-			
-
-			
+	
 		}  catch (SQLException e) {
             e.printStackTrace();
 		} finally {
@@ -165,7 +165,7 @@ public class DataVeterinarios {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt=ConectorDB.getInstancia().getConn().prepareStatement("SELECT * FROM veterinario WHERE matricula = ? AND NOT id = ?");
+			stmt=ConectorDB.getInstancia().getConn().prepareStatement("SELECT * FROM veterinario WHERE matricula = ? AND NOT id = ? AND eliminado=0");
 			stmt.setString(1, veterinario.getMatricula());
 			stmt.setInt(2, veterinario.getId());
 			rs=stmt.executeQuery();
