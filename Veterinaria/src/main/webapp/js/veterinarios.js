@@ -25,19 +25,19 @@ function listadoVeterinarios(arrayHeader, data) {
     console.log(data);
     for (let i = 0; i < data.length; i++) {
 	 if (data[i].eliminado == 0){
-    contenido += "<tr>";
-    contenido += "<td class='text-center'>" + data[i].matricula + "</td>";
-    contenido += "<td>" + data[i].nombre + "</td>";
-    contenido += "<td>" + data[i].apellido + "</td>";
-    contenido += "<td>" + data[i].telefono + "</td>";
-    contenido += "<td>" + data[i].direccion + "</td>";
-    contenido += "<td>" + data[i].email + "</td>";
+    	contenido += "<tr>";
+    	contenido += "<td class='text-center'>" + data[i].matricula + "</td>";
+    	contenido += "<td>" + data[i].nombre + "</td>";
+    	contenido += "<td>" + data[i].apellido + "</td>";
+    	contenido += "<td>" + data[i].telefono + "</td>";
+    	contenido += "<td>" + data[i].direccion + "</td>";
+    	contenido += "<td>" + data[i].email + "</td>";
         
-    contenido += "<td class='d-flex justify-content-center'>";
-    contenido += "<button class='btn btn-outline-success me-4' onclick='modalEdit(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-pencil-square'></i></button>";
-    contenido += "<button class='btn btn-outline-danger ms-4' onclick='modalDelete(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-trash3'></i></button>";
-    contenido += "</td>";
-    contenido += "</tr>";
+   	 	contenido += "<td class='d-flex justify-content-center'>";
+    	contenido += "<button class='btn btn-outline-success me-4' onclick='modalEdit(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-pencil-square'></i></button>";
+    	contenido += "<button class='btn btn-outline-danger ms-4' onclick='modalDelete(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-trash3'></i></button>";
+    	contenido += "</td>";
+    	contenido += "</tr>";
     }
     }
     contenido += "</tbody>";

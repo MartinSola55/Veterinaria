@@ -14,6 +14,7 @@
     	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
    	    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
    	    <link href="styles/mis-estilos.css" rel="stylesheet" type="text/css" />
+   	    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 	
 	</head>
@@ -163,7 +164,7 @@
 
 	<%@ include file="Footer.jsp" %>
 
-
+	
     <script src="js/bootstrap.min.js"></script>
     <script src="js/modernizr-2.8.3.js"></script>
     <script src="js/jquery-3.6.0.min.js"></script>

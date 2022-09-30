@@ -5,27 +5,27 @@ let yyyy = hoy.getFullYear();
 hoy = dd + '/' + mm + '/' + yyyy;
 moment.locale('es');
 
-$(function () {
+
     $('#txtNacimiento').daterangepicker({
         "autoApply": true,
         "locale": {
+	 		"format": "YYYY-MM-DD",
+            "separator": " - ",
             "applyLabel": "Aplicar",
             "cancelLabel": "Cancelar",
             "fromLabel": "Hasta",
             "toLabel": "Desde",
         },
-        singleDatePicker: true,
-       //minDate: minDia, 
-      
+        
+        singleDatePicker: true,     
         maxDate: hoy,
         opens: 'right',
-        isInvalidDate: function (date) {
+        /*isInvalidDate: function (date) {
             if (date.day() == 1 ||  date.day() == 2  || date.day() == 3 ||  date.day() == 4 ||  date.day() == 5)
                 return false;
             return true;
-        }
+        }*/
     })
-});
 
 
 

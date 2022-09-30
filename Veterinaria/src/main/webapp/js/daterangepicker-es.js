@@ -3,7 +3,7 @@
 
 	daterangepicker.regional.es = {
         "locale": {
-            "format": "MM/DD/YYYY",
+            "format": "YYYY-MM-DD",
             "separator": " - ",
             "applyLabel": "Aplicar",
             "cancelLabel": "Cancelar",
