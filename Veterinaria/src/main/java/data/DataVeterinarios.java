@@ -23,7 +23,9 @@ public class DataVeterinarios {
 					v.setApellido(rs.getString("apellido"));
 					v.setDireccion(rs.getString("direccion"));
 					v.setTelefono(rs.getString("telefono"));
-					v.setEmail(rs.getString("email"));
+					if (rs.getString("email") != null) {						
+						v.setEmail(rs.getString("email"));
+					}
 					v.setEliminado(rs.getInt("eliminado"));
 					
 					

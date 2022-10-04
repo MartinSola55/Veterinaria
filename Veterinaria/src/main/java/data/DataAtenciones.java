@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
+
 import entities.*;
 import logic.*;
 
@@ -92,6 +94,8 @@ public class DataAtenciones {
 
 	public void update(Atencion atencion) {
 		PreparedStatement stmt=null;
+		PreparedStatement stmt2=null;
+		PreparedStatement stmt3=null;
 		Connection con=ConectorDB.getInstancia().getConn();
 		try {
 			con.setAutoCommit(false);
@@ -104,6 +108,18 @@ public class DataAtenciones {
 			stmt.setInt(5, atencion.getId());
 			stmt.executeUpdate();
 			
+			stmt2=ConectorDB.getInstancia().getConn().prepareStatement("DELETE FROM atencion_practica WHERE atencion_id=?");
+			stmt2.setInt(1, atencion.getId());
+			stmt2.executeUpdate();
+			
+			for (Practica p : atencion.getPracticas()) {
+				stmt3=ConectorDB.getInstancia().getConn().prepareStatement("INSERT INTO atencion_practica(atencion_id, practica_id) VALUES(?, ?)");
+				stmt3.setInt(1, atencion.getId());
+				stmt3.setInt(2, p.getId());
+				stmt3.executeUpdate();
+			}			
+			con.commit();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -195,16 +211,14 @@ public class DataAtenciones {
 					stmt2.setInt(1, at.getId());
 					rs2=stmt2.executeQuery();
 					if(rs2!=null) {
-						LinkedList<Practica> practicas=new LinkedList();
+						LinkedList<Practica> practicas=new LinkedList<Practica>();
 						while(rs2.next()) {
-						Practica pra= new Practica();
-						pra=pl.getOne(rs2.getInt("practica_id"));
-						practicas.add(pra);
+							Practica pra= new Practica();
+							pra=pl.getOne(rs2.getInt("practica_id"));
+							practicas.add(pra);
 						}
 						at.setPracticas(practicas);
 					}
-
-				
 					atenciones.add(at);
 				}
 			}

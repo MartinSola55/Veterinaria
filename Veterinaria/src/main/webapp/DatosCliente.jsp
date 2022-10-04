@@ -11,7 +11,6 @@
 		<title>Animales</title>
 		<link rel="icon" type="image/jpg" href="img/favicon.png" />
 	    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
    	    <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" />
    	    <link href="styles/mis-estilos.css" rel="stylesheet" type="text/css" />
    	    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -41,15 +40,15 @@
 
 		    <label class="mb-2">DNI: </label>
 		    <input id="txtDNI" type="text" class="form-control mb-2" disabled />
-
+	        
 	        <button id="btnAgregarMas" type="button" class="btn btn-success px-4 mt-4" data-bs-toggle="modal" data-bs-target="#staticBackdropMascota">
 	            Agregar mascota
 	        </button>
-	        
-	        <hr/>
-	        <hr/>
-	        
-	        <button id="btnAgregarAt" type="button" class="btn btn-success px-4 mt-4" data-bs-toggle="modal"  data-bs-target="#staticBackdrop"> 
+	       	
+	       	<span></span>
+	       	<span></span>
+	       	        
+	        <button id="btnAgregarAt" type="button" class="btn btn-success px-2 mt-4 w-75" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> 
 	            Agregar atencion
 	        </button>
 															
@@ -63,10 +62,8 @@
 
 		</div>
 		
-	
-		
-		
-				<!-- Modal atenciones -->
+
+			<!-- Modal atenciones -->
    			<div id="staticBackdrop" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 			    <div class="modal-dialog modal-dialog-centered">
 			        <div class="modal-content">
@@ -84,10 +81,8 @@
 			        		<label id="campo1" class="mb-3">Animal: </label>
 			                <select id="comboAnimales" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required2 mb-3" ></select>
 			                 
-			               <label id="campo2" class="mb-3">Prácticas: </label>
-			              	<select id="comboPracticas" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required2 mb-3" ></select>
-			               <!--<label><input id="cb1" type="checkbox" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required2 mb-3" disabled />Uno</label>
-			               <label><input type="checkbox" id="comboPracticas" value="first_checkbox" class=" limpiarCampo habilitarCampo deshabilitarCampo required2 mb-3"> Este es mi primer checkbox</label><br>-->
+			               	<label id="campo2" class="mb-3">Prácticas: </label>
+			              	<select id="comboPracticas" multiple class="form-control limpiarCampo habilitarCampo deshabilitarCampo required2 mb-3" ></select>
 			               
 			                <label id="campo3" class="mb-3">Fecha de atención: </label>
 			               	<input id="txtAtencion" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required2 mb-3" />
@@ -172,6 +167,7 @@
 	<script src="js/moment-with-locales.js"></script>
 	<script src="js/daterangepicker.js"></script>
 	<script src="js/daterangepicker-es.js"></script>
-	<script src="js/datosCliente.js"></script>
+	<script src="js/clienteMascotas.js"></script>
+	<script src="js/clienteAtenciones.js"></script>
 	</body>
 </html>

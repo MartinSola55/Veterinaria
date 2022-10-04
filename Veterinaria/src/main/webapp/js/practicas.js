@@ -26,9 +26,9 @@ function listadoPracticas(arrayHeader, data) {
     for (let i = 0; i < data.length; i++) {
 	if (data[i].eliminado == 0){
         contenido += "<tr>";
-        contenido += "<td>" + data[i].id+ "</td>";
-        contenido += "<td class='text-center'>" + data[i].descripcion + "</td>";
-        contenido += "<td>" + data[i].precio.valor+ "</td>";
+        contenido += "<td class='text-center'>" + data[i].id+ "</td>";
+        contenido += "<td>" + data[i].descripcion + "</td>";
+        contenido += "<td class='text-center'>" + data[i].precio.valor+ "</td>";
 
         
         contenido += "<td class='d-flex justify-content-center'>";

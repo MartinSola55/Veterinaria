@@ -81,17 +81,15 @@ public class Atenciones extends HttpServlet {
 		Veterinario vet= new Veterinario();
 		Mascota mas = new Mascota();
 		Practica prac = new Practica();
+		String[] id_practicas;
 		LinkedList<Practica> practicas = new LinkedList<>();
-		
 		int regAfectados = 0;
 		try {
 			switch (request.getParameter("action")) {
 			case "save": {	
 				if (request.getParameter("id") == "") {
 					Atencion atencion = new Atencion();
-					prac.setId(Integer.parseInt(request.getParameter("practica")));
-					System.out.println(Integer.parseInt(request.getParameter("practica")));
-					//prac.setId(300);
+					prac.setId(Integer.parseInt(request.getParameter("practicas")));
 					practicas.add(prac);
 					vet.setId(Integer.parseInt(request.getParameter("id_veterinario")));
 					mas.setId(Integer.parseInt(request.getParameter("id_mascota")));
@@ -115,10 +113,14 @@ public class Atenciones extends HttpServlet {
 					int ID = Integer.parseInt(request.getParameter("id"));
 					Atencion atencion = new Atencion();
 					atencion.setId(ID);
-					prac.setId(Integer.parseInt(request.getParameter("practica")));
+					id_practicas = request.getParameterValues("practicas[]");
+					for (String id : id_practicas) {	
+						Practica practica = new Practica();
+						practica.setId(Integer.parseInt(id));
+						practicas.add(practica);
+					}
 					vet.setId(Integer.parseInt(request.getParameter("id_veterinario")));
 					mas.setId(Integer.parseInt(request.getParameter("id_mascota")));
-					practicas.add(prac);
 					atencion.setPracticas(practicas);
 					atencion.setVeterinario(vet);
 					atencion.setAnimal(mas);
@@ -133,7 +135,7 @@ public class Atenciones extends HttpServlet {
 						regAfectados = 1;						
 					} else {
 						regAfectados = -1;
-					}			
+					}	
 				}
 				break;
 			}
