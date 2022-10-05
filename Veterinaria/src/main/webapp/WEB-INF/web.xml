@@ -99,4 +99,15 @@
     <url-pattern>/mascotas</url-pattern>
     <url-pattern>/MASCOTAS</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Proveedores</display-name>
+    <servlet-name>Proveedores</servlet-name>
+    <servlet-class>servlets.Proveedores</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Proveedores</servlet-name>
+    <url-pattern>/Proveedores</url-pattern>
+    <url-pattern>/proveedores</url-pattern>
+  </servlet-mapping>
 </web-app>
