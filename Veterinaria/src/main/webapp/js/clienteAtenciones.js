@@ -160,13 +160,15 @@ function completarCamposA(id) {
 				id : id,
 			},
 			success : function(data) {
+				console.log(data);
     	        $("#txtID").val(data["id"]);
 	        	$('#comboVeterinarios').val(data['veterinario']['id']);
 	        	$('#comboAnimales').val(data['animal']['id']);
-
+	        	let array = [];
 	        	for (let i = 0; i < data['practicas'].length; i++) {
-	        		$('#comboPracticas').val(data['practicas'][i]['id']);
+	        		array [i] = data['practicas'][i]['id'];
 	        	}
+	        	$('#comboPracticas').val(array);
 	        	$('#txtAtencion').val(data['fecha_atencion']);
 	        	$('#txtPago').val(data['fecha_pago']);
 			}

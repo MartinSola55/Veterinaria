@@ -80,7 +80,6 @@ public class Atenciones extends HttpServlet {
 		
 		Veterinario vet= new Veterinario();
 		Mascota mas = new Mascota();
-		Practica prac = new Practica();
 		String[] id_practicas;
 		LinkedList<Practica> practicas = new LinkedList<>();
 		int regAfectados = 0;
@@ -89,8 +88,12 @@ public class Atenciones extends HttpServlet {
 			case "save": {	
 				if (request.getParameter("id") == "") {
 					Atencion atencion = new Atencion();
-					prac.setId(Integer.parseInt(request.getParameter("practicas")));
-					practicas.add(prac);
+					String[] array = request.getParameterValues("practicas[]");
+					for (String id : array) {	
+						Practica prac = new Practica();
+						prac.setId(Integer.parseInt(id));
+						practicas.add(prac);
+					}
 					vet.setId(Integer.parseInt(request.getParameter("id_veterinario")));
 					mas.setId(Integer.parseInt(request.getParameter("id_mascota")));
 					atencion.setPracticas(practicas);

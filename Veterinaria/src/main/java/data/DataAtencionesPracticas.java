@@ -16,11 +16,8 @@ public class DataAtencionesPracticas {
 		Connection con=ConectorDB.getInstancia().getConn();
 		
 		try {
-			con.setAutoCommit(false);
-			System.out.println(atencion);
-			
-			 for (Practica practica : atencion.getPracticas()){
-				 
+			con.setAutoCommit(false);			
+			 for (Practica practica : atencion.getPracticas()){				 
 				try {
 					stmt=ConectorDB.getInstancia().getConn().prepareStatement("INSERT INTO atencion_practica(atencion_id,practica_id) values(?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 					stmt.setInt(1, atencion.getId());

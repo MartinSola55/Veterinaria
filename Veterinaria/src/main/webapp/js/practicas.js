@@ -28,7 +28,7 @@ function listadoPracticas(arrayHeader, data) {
         contenido += "<tr>";
         contenido += "<td class='text-center'>" + data[i].id+ "</td>";
         contenido += "<td>" + data[i].descripcion + "</td>";
-        contenido += "<td class='text-center'>" + data[i].precio.valor+ "</td>";
+        contenido += "<td class='text-center'>$" + data[i].precio.valor+ "</td>";
 
         
         contenido += "<td class='d-flex justify-content-center'>";
