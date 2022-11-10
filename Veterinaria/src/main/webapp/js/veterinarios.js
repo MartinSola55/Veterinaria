@@ -3,8 +3,7 @@ listar();
 
 function listar() {
     $.get("Veterinarios", function (data) {
-		
-        listadoVeterinarios(header, data);
+    listadoVeterinarios(header, data);
     });
 }
 

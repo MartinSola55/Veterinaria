@@ -10,6 +10,8 @@
 	            <a class="navbar-brand my-auto" href="Practicas.jsp">Practicas</a>             	            
 				<a class="navbar-brand my-auto" href="Clientes.jsp">Clientes</a>             	                     	            
 				<a class="navbar-brand my-auto" href="Proveedores.jsp">Proveedores</a>
+				<a class="navbar-brand my-auto" href="Productos.jsp">Productos</a>
+				
 	        </div>
 	</div>  
 </header>

@@ -110,4 +110,30 @@
     <url-pattern>/Proveedores</url-pattern>
     <url-pattern>/proveedores</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Productos</display-name>
+    <servlet-name>Productos</servlet-name>
+    <servlet-class>servlets.Productos</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Productos</servlet-name>
+    <url-pattern>/Productos</url-pattern>
+    <url-pattern>/productos</url-pattern>
+    <url-pattern>/producto</url-pattern>
+    <url-pattern>/Producto</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Reservas</display-name>
+    <servlet-name>Reservas</servlet-name>
+    <servlet-class>servlets.Reservas</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Reservas</servlet-name>
+    <url-pattern>/Reservas</url-pattern>
+    <url-pattern>/reserva</url-pattern>
+    <url-pattern>/reservas</url-pattern>
+    <url-pattern>/Reserva</url-pattern>
+  </servlet-mapping>
 </web-app>
