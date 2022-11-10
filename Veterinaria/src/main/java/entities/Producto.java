@@ -9,6 +9,13 @@ public class Producto {
 	private int stock;
 	private int tipo;
 	private Blob imagen;
+	private float precio;
+	public float getPrecio() {
+		return precio;
+	}
+	public void setPrecio(float precio) {
+		this.precio = precio;
+	}
 	public int getId() {
 		return id;
 	}

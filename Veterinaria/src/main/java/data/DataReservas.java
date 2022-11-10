@@ -116,7 +116,7 @@ public class DataReservas {
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
 		try {
-			stmt=ConectorDB.getInstancia().getConn().prepareStatement("INSERT INTO cliente_reserva(id_cliente, id_producto,cantidad)"
+			stmt=ConectorDB.getInstancia().getConn().prepareStatement("INSERT INTO cliente_reserva(id_cliente, id_producto, cantidad)"
 					+ " values(?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, reserva.getCliente().getId());
 			stmt.setInt(2, reserva.getProducto().getId());

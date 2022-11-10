@@ -1,8 +1,8 @@
-let header = ["ID","Descripcion", "Stock","Tipo"];
+let header = ["Descripcion", "Stock","Tipo", "Precio"];
 listar();
 
 function listar() {
-    $.get("Productos", function (data) {
+    $.get("ProductosAdmin", function (data) {
     	listadoProductos(header, data);
     });
 }
@@ -23,13 +23,13 @@ function listadoProductos(arrayHeader, data) {
     contenido += "<tbody>";
     for (let i = 0; i < data.length; i++) {
         contenido += "<tr>";
-      	contenido += "<td class='text-center'>" + data[i].id + "</td>";
         contenido += "<td>" + data[i].descripcion + "</td>";
         contenido += "<td>" + data[i].stock + "</td>";
         contenido += "<td>" + data[i].tipo + "</td>";
-        contenido += "<td class='d-flex justify-content-between'>";
-        contenido += "<button class='btn btn-outline-success ms-4' onclick='modalEdit(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-pencil-square'></i></button>";
-        contenido += "<button class='btn btn-outline-danger' onclick='modalDelete(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-trash3'></i></button>";
+        contenido += "<td>$" + data[i].precio + "</td>";
+        contenido += "<td class='d-flex justify-content-center'>";
+        contenido += "<button class='btn btn-outline-success me-4' onclick='modalEdit(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-pencil-square'></i></button>";
+        contenido += "<button class='btn btn-outline-danger ms-4' onclick='modalDelete(" + data[i].id + ")' data-bs-toggle='modal' data-bs-target='#staticBackdrop'><i class='bi bi-trash3'></i></button>";
         contenido += "</td>";
         contenido += "</tr>";
     }
@@ -41,7 +41,7 @@ function listadoProductos(arrayHeader, data) {
 
 function completarCampos(id) {
 	$.ajax({
-			url : 'Productos',
+			url : 'ProductosAdmin',
 			method: 'get',
 			data : {
 				id : id,
@@ -52,6 +52,7 @@ function completarCampos(id) {
 		        $('#txtID').val(data['id']);
         		$("#txtStock").val(data['stock']);
          		$("#txtTipo").val(data['tipo']);
+         		$("#txtPrecio").val(data['precio']);
 			}
 		});
 }
@@ -113,12 +114,13 @@ function confirmarCambios() {
         let descripcion = $("#txtDescripcion").val();
         let stock = $("#txtStock").val();
         let tipo = $("#txtTipo").val();
-
+		let precio = $("#txtPrecio").val();
         let json = {
 			"id": id,
 			"descripcion": descripcion,
 			"stock": stock,
 			"tipo": tipo,
+			"precio": precio,
 			"action": ""
 		};
         if ($("#btnAceptar").hasClass("eliminar")) {
@@ -136,7 +138,7 @@ function confirmarCambios() {
 function crudProducto(json) {
     $.ajax({
         type: "POST",
-        url: "Productos",
+        url: "ProductosAdmin",
         dataType: 'json',
         data: json,
         success: function (data) {

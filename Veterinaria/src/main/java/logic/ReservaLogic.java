@@ -35,15 +35,6 @@ private DataReservas dr = new DataReservas();
         {
         	e.printStackTrace();
         }
-	}
-	public void update (Reserva reserva) {
-		try
-		{
-			dr.update(reserva);
-		} catch (Exception e)
-		{
-			throw e;
-		}
 	}	
 	public void delete (Reserva reserva) {
 		try

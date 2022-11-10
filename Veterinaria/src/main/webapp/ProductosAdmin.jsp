@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Productos</title>
+		<title>Administrar productos</title>
 		<link rel="icon" type="image/jpg" href="img/favicon.png" />
 	    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -16,7 +16,7 @@
 	<body>
 	<%@ include file="Header.jsp" %>
 	<main>
-		<h1 class="text-center mt-5">Productos</h1>
+		<h1 class="text-center mt-5">Administrar productos</h1>
 		
 		
 			<div id="tabla-producto" class="container body-content mt-5">
@@ -52,6 +52,9 @@
 			                
 			                <label id="campo2" class="mb-3">Tipo: </label>
 			                <input id="txtTipo" type="text" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required mb-3" />
+			                
+			                <label id="campo3" class="mb-3">Precio: </label>
+			                <input id="txtPrecio" type="number" step=".01" class="form-control limpiarCampo habilitarCampo deshabilitarCampo required mb-3" />
 
 			            </div>
 			            <div class="modal-footer">

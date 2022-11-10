@@ -20,13 +20,13 @@ import entities.Producto;
 /**
  * Servlet implementation class Productos
  */
-public class Productos extends HttpServlet {
+public class ProductosAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Productos() {
+    public ProductosAdmin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -56,6 +56,7 @@ public class Productos extends HttpServlet {
 			}
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			// TODO: handle exception
 		}
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -77,6 +78,7 @@ public class Productos extends HttpServlet {
 					producto.setDescripcion(request.getParameter("descripcion"));
 					producto.setStock(Integer.parseInt(request.getParameter("stock")));			
 					producto.setTipo(Integer.parseInt(request.getParameter("tipo")));
+					producto.setPrecio(Float.parseFloat(request.getParameter("precio")));
 										
 					boolean repetido = pl.esRepetido(producto);
 					if (repetido == false) {
@@ -95,6 +97,8 @@ public class Productos extends HttpServlet {
 					producto.setDescripcion(request.getParameter("descripcion"));
 					producto.setStock(Integer.parseInt(request.getParameter("stock")));			
 					producto.setTipo(Integer.parseInt(request.getParameter("tipo")));
+					producto.setPrecio(Float.parseFloat(request.getParameter("precio")));
+
 					boolean repetido = pl.esRepetido(producto);
 					
 

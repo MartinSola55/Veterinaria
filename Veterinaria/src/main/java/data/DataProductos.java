@@ -21,6 +21,7 @@ public class DataProductos {
 					p.setDescripcion(rs.getString("descripcion"));
 					p.setTipo(rs.getInt("tipo"));
 					p.setStock(rs.getInt("stock"));
+					p.setPrecio(rs.getFloat("precio"));
 					
 					productos.add(p);
 				}
@@ -57,6 +58,7 @@ public class DataProductos {
 				producto.setDescripcion(rs.getString("descripcion"));
 				producto.setTipo(rs.getInt("tipo"));
 				producto.setStock(rs.getInt("stock"));
+				producto.setPrecio(rs.getFloat("precio"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,11 +78,12 @@ public class DataProductos {
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
 		try {
-			stmt=ConectorDB.getInstancia().getConn().prepareStatement("INSERT INTO producto(descripcion,tipo,stock) values(?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt=ConectorDB.getInstancia().getConn().prepareStatement("INSERT INTO producto(descripcion,tipo,stock, precio) values(?,?,?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 
 			stmt.setString(1, p.getDescripcion());
 			stmt.setInt(2, p.getTipo());
 			stmt.setInt(3, p.getStock());
+			stmt.setFloat(4, p.getPrecio());
 			
 
 			stmt.executeUpdate();
@@ -125,11 +128,12 @@ public class DataProductos {
 	public void update(Producto p) {
 		PreparedStatement stmt=null;
 		try {
-			stmt=ConectorDB.getInstancia().getConn().prepareStatement("UPDATE producto SET descripcion =?,tipo=?,stock=? WHERE id=?");
+			stmt=ConectorDB.getInstancia().getConn().prepareStatement("UPDATE producto SET descripcion =?,tipo=?,stock=?, precio=? WHERE id=?");
 			stmt.setString(1, p.getDescripcion());
 			stmt.setInt(2, p.getTipo());
 			stmt.setInt(3, p.getStock());
 			stmt.setInt(4, p.getId());
+			stmt.setFloat(5, p.getPrecio());
 			stmt.executeUpdate();
 			
 		} catch (SQLException e) {

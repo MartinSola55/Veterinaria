@@ -112,16 +112,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>Productos</display-name>
-    <servlet-name>Productos</servlet-name>
-    <servlet-class>servlets.Productos</servlet-class>
+    <display-name>ProductosAdmin</display-name>
+    <servlet-name>ProductosAdmin</servlet-name>
+    <servlet-class>servlets.ProductosAdmin</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Productos</servlet-name>
-    <url-pattern>/Productos</url-pattern>
-    <url-pattern>/productos</url-pattern>
-    <url-pattern>/producto</url-pattern>
-    <url-pattern>/Producto</url-pattern>
+    <servlet-name>ProductosAdmin</servlet-name>
+    <url-pattern>/ProductosAdmin</url-pattern>
+    <url-pattern>/productosadmin</url-pattern>
+    <url-pattern>/productoadmin</url-pattern>
+    <url-pattern>/ProductoAdmin</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -132,8 +132,7 @@
   <servlet-mapping>
     <servlet-name>Reservas</servlet-name>
     <url-pattern>/Reservas</url-pattern>
-    <url-pattern>/reserva</url-pattern>
     <url-pattern>/reservas</url-pattern>
-    <url-pattern>/Reserva</url-pattern>
+    <url-pattern>/RESERVAS</url-pattern>
   </servlet-mapping>
 </web-app>
